@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Меню</title>
+</head>
+<body>
+    <h1>Меню</h1>
+    <table border="1">
+        <tr>
+            <th>Назва</th>
+            <th>Опис інгредієнтів</th>
+            <th>Ціна</th>
+            <th>Дії</th>
+        </tr>
+        {% for pizza in menu %}
+        <tr>
+            <td>{{ pizza.name }}</td>
+            <td>{{ pizza.ingredients }}</td>
+            <td>{{ pizza.price }} грн</td>
+            <td>
+                <a href="{{ url_for('edit_pizza', pizza_id=pizza.id) }}">Редагувати</a> |
+                <form action="{{ url_for('delete_pizza', pizza_id=pizza.id) }}" method="post" style="display:inline;">
+                    <button type="submit" onclick="return confirm('Ви впевнені?')">Видалити</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p><a href="{{ url_for('add_pizza') }}">Додати нову піцу</a></p>
+</body>
+</html>
